@@ -20,16 +20,6 @@ public class UserController {
     return userService.findAllUsers();
   }
 
-//  @PostMapping("/login")
-//  public Users login(@RequestBody LoginRequest user) {
-//    return userService.login(user.getUsername(), user.getPassword()).getBody();
-//  }
-
-//  @PostMapping("/signup")
-//  public Users createUser(@RequestBody Users user) {
-//    return userService.signup(user);
-//  }
-
   @PutMapping("/users/{id}")
   public Optional<Users> updateUser(@PathVariable Long id, @RequestBody Users user) {
     return userService.updateUser(id, user);

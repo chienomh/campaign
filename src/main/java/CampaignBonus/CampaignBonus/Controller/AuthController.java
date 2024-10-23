@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class AuthController {
@@ -26,15 +29,18 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+  public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest loginRequest) {
     Users user = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
 
     if (user != null) {
       String token = jwtUtil.generateToken(loginRequest.getUsername());
-      token = "Bearer " + token;
-      return ResponseEntity.ok("Bearer " + token);
+      Map<String, Object> res = new HashMap<>();
+      res.put("token", token);
+      return ResponseEntity.ok(res);
     }
-    return ResponseEntity.status(401).body("Invalid username or password");
+    Map<String, Object> res = new HashMap<>();
+    res.put("error", "Invalid username or password");
+    return ResponseEntity.status(401).body(res);
   }
 }
 

@@ -15,16 +15,13 @@ public class Campaign {
   private String name;
   private String description;
 
-  @NotBlank(message = "Campaign must have a name")
+  @NotBlank(message = "Campaign must have a awarded to")
   private String awarded_to;
 
-  @NotBlank(message = "Campaign must have a name")
   private Date payment_date;
 
-  @NotBlank(message = "Campaign must have a name")
   private Double bonus_amount;
 
-  @NotBlank(message = "Campaign must have a name")
   @Enumerated(EnumType.ORDINAL)
   private CampaignType campaign_type;
 
