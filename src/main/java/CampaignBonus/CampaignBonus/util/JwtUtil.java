@@ -3,6 +3,8 @@ package CampaignBonus.CampaignBonus.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import org.springframework.stereotype.Component;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +13,15 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-  private final String secret = "your-very-long-secret-key-of-at-least-32-characters";
-  private final long expirationTime = 86400000; // Token expiration time (24 hours)
+  private final String secret = "ThangCaoChimDaiDu30PhutNhieuTuTheBuLiemDayDu";
+  private final long expirationTime = 86400000; // 1 day
 
-  private final Key key = Keys.hmacShaKeyFor(secret.getBytes());
+//  private static final String SECRET_KEY = "Z1J4HwgUZ5KCwt2qd4WQUBflqPn3ctHM6hTzdWGPJhY=";
+//  private static final Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
+
   public String generateToken(String username) {
+
+    Key key = Keys.hmacShaKeyFor(secret.getBytes());
     return Jwts.builder()
             .setSubject(username)
             .setIssuedAt(new Date())
@@ -36,3 +42,4 @@ public class JwtUtil {
     return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
   }
 }
+
